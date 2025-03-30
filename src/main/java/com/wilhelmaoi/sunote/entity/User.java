@@ -1,9 +1,13 @@
 package com.wilhelmaoi.sunote.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 /**
  * 功能:
@@ -15,15 +19,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName("User")
 public class User {
-    String username;
-    String password;
-    String email;
-    String phone;
-    String avatar;
-    String bio;
-    String address;
-    String birthday;
-
-
-
+    @TableId(type = IdType.AUTO)
+    private String username;
+    private String password;
+    private String email;
+    private String phone;
+    private String avatar;
+    private String bio;
+    private String address;
+    private LocalDate birthday;
 }
