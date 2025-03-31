@@ -1,6 +1,7 @@
 package com.wilhelmaoi.sunote.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("User")
+@TableName("user")
 public class User {
     @TableId(type = IdType.AUTO)
     private String username;
@@ -28,4 +29,9 @@ public class User {
     private String bio;
     private String address;
     private LocalDate birthday;
+
+    @TableField(exist = false)
+    private String token;
+
+
 }
