@@ -34,6 +34,8 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation("com.baomidou:mybatis-plus-boot-starter:3.5.11")
     implementation 'cn.hutool:hutool-all:5.8.36'
+    implementation 'com.auth0:java-jwt:4.5.0'
+
 }
 
 tasks.named('test') {

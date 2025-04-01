@@ -21,6 +21,7 @@ import java.time.LocalDate;
 @TableName("user")
 public class User {
     @TableId(type = IdType.AUTO)
+    private Integer id;
     private String username;
     private String password;
     private String email;

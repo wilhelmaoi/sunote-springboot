@@ -10,8 +10,8 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.demo1.blogspringboot.entity.User;
-import com.demo1.blogspringboot.mapper.UserMapper;
+import com.wilhelmaoi.sunote.entity.User;
+import com.wilhelmaoi.sunote.mapper.UserMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -37,7 +37,7 @@ public class TokenUtils {
     /**
      * 生成token
      *
-     * @return
+     * @return token对象
      */
     public static String createToken(String userId, String sign) {
         return JWT.create().withAudience(userId) // 将 user id 保存到 token 里面,作为载荷
@@ -51,16 +51,22 @@ public class TokenUtils {
      * @return user对象
      */
     public static User getCurrentUser() {
-        try {
-            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            String token = request.getHeader("token");
-            if (StrUtil.isNotBlank(token)) {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attributes == null) {
+            return null;
+        }
+        HttpServletRequest request = attributes.getRequest();
+        String token = request.getHeader("token");
+
+        if (StrUtil.isNotBlank(token)) {
+            try {
                 String userId = JWT.decode(token).getAudience().get(0);
                 return staticUserMapper.selectById(Integer.valueOf(userId));
+            } catch (Exception e) {
+                return null;
             }
-        } catch (Exception e) {
-            return null;
         }
         return null;
     }
+
 }
