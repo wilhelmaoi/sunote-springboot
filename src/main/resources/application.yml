@@ -17,8 +17,8 @@ spring:
   mail:
     host: smtp.qq.com              # 根据邮箱服务商选择（QQ、163、Gmail等）
     port: 587
-    username: 3265065519@qq.com    # 发件人邮箱
-    password: hgeqotrfouacdagi       # 邮箱授权码（不是登录密码）
+    username: example@qq.com    # 发件人邮箱
+    password: example       # 邮箱授权码（不是登录密码）
     protocol: smtp
     default-encoding: UTF-8
     properties:
@@ -30,13 +30,13 @@ spring:
 
 # 京东云OSS配置
 oss:
-  access-key: JDC_95CD5F7354CEC74006B4A52E60FE     # 实际应用中替换为真实的访问密钥
-  secret-key: 866A5862B4FB474DD47CB0EED326DB9B     # 实际应用中替换为真实的密钥
+  access-key: example     # 实际应用中替换为真实的访问密钥
+  secret-key: example     # 实际应用中替换为真实的密钥
   endpoint: s3.cn-south-1.jdcloud-oss.com
-  bucket: sunote
+  bucket: example
   region: cn-south-1
   # 文件访问URL前缀
-  url-prefix: https://sunote.s3.cn-south-1.jdcloud-oss.com/
+  url-prefix: https://example.s3.cn-south-1.jdcloud-oss.com/
 
 server:
   address: 0.0.0.0
