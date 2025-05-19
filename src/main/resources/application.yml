@@ -5,5 +5,39 @@ spring:
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  # Redis配置
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password:  # 无密码时留空
+      timeout: 5000
+      database: 0  # 使用的数据库索引，默认为0
+
+  mail:
+    host: smtp.qq.com              # 根据邮箱服务商选择（QQ、163、Gmail等）
+    port: 587
+    username: 3265065519@qq.com    # 发件人邮箱
+    password: hgeqotrfouacdagi       # 邮箱授权码（不是登录密码）
+    protocol: smtp
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+# 京东云OSS配置
+oss:
+  access-key: JDC_95CD5F7354CEC74006B4A52E60FE     # 实际应用中替换为真实的访问密钥
+  secret-key: 866A5862B4FB474DD47CB0EED326DB9B     # 实际应用中替换为真实的密钥
+  endpoint: s3.cn-south-1.jdcloud-oss.com
+  bucket: sunote
+  region: cn-south-1
+  # 文件访问URL前缀
+  url-prefix: https://sunote.s3.cn-south-1.jdcloud-oss.com/
+
 server:
-  port: 8081
+  address: 0.0.0.0
+  port: 10800

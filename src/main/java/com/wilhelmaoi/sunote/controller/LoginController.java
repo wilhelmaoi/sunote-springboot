@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 功能: 提供接口返回数据
  * 作者: wilhelmaoi
@@ -32,7 +35,9 @@ public class LoginController {
 
         }
         User dbUser = loginService.login(user); // 使用注入的 loginService 实例
-        return Result.success(dbUser.getToken()); // 只返回 Token
+        Map<String, Object> data = new HashMap<>();
+        data.put("token", dbUser.getToken());
+        return Result.success(data); // 只返回 Token
     }
 
     @RequestMapping("/hello")
@@ -44,14 +49,12 @@ public class LoginController {
 
     @PostMapping("/register")
     public Result register(@RequestBody User user) {
-        if (StrUtil.isBlank(user.getUsername()) || StrUtil.isBlank(user.getPassword())) {
-            return Result.error("数据输入不合法");
+        try {
+            User registeredUser = loginService.register(user);
+            return Result.success(registeredUser);
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
         }
-        if (user.getUsername().length() > 10 || user.getPassword().length() > 20) {
-            return Result.error("数据输入不合法");
-        }
-        user = loginService.register(user);
-        return Result.success(user);
     }
 
 //    @AuthAccess

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * 功能:
@@ -24,15 +25,17 @@ public class User {
     private Integer id;
     private String username;
     private String password;
+    private String nickname;
     private String email;
     private String phone;
     private String avatar;
     private String bio;
     private String address;
     private LocalDate birthday;
+    // 头像更新时间戳
+    private Date avatarUpdatedAt;
 
     @TableField(exist = false)
     private String token;
-
 
 }

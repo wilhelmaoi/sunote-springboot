@@ -43,12 +43,27 @@ public class LoginService extends ServiceImpl<UserMapper, User> {
     }
 
     public User register(User user) {
+        // 检查用户名是否已存在
         User dbUser = userService.selectByUsername(user.getUsername());
         if (dbUser != null) {
-            // 抛出一个自定义的异常
             throw new ServiceException("用户名已存在");
         }
-//        user.setName(user.getUsername());
+
+        // 检查邮箱是否已存在
+        QueryWrapper<User> emailQuery = new QueryWrapper<>();
+        emailQuery.eq("email", user.getEmail());
+        User emailUser = userMapper.selectOne(emailQuery);
+        if (emailUser != null) {
+            throw new ServiceException("邮箱已被注册");
+        }
+
+        // 设置默认值
+        user.setNickname(user.getNickname() != null ? user.getNickname() : user.getUsername());
+        user.setAvatar(""); // 设置默认头像为空
+        user.setBio(""); // 设置默认简介为空
+        user.setBirthday(null); // 设置默认生日为null
+
+        // 插入用户数据
         userMapper.insert(user);
         return user;
     }

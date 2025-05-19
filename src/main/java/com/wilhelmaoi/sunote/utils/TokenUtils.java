@@ -56,13 +56,24 @@ public class TokenUtils {
             return null;
         }
         HttpServletRequest request = attributes.getRequest();
+        
+        // 尝试从多个位置获取token
         String token = request.getHeader("token");
+        
+        // 如果token为空，尝试从Authorization头获取
+        if (StrUtil.isBlank(token)) {
+            String authHeader = request.getHeader("Authorization");
+            if (StrUtil.isNotBlank(authHeader) && authHeader.startsWith("Bearer ")) {
+                token = authHeader.substring(7); // 去掉"Bearer "前缀
+            }
+        }
 
         if (StrUtil.isNotBlank(token)) {
             try {
                 String userId = JWT.decode(token).getAudience().get(0);
                 return staticUserMapper.selectById(Integer.valueOf(userId));
             } catch (Exception e) {
+                e.printStackTrace(); // 添加异常打印以便调试
                 return null;
             }
         }

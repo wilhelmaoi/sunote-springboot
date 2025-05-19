@@ -23,6 +23,13 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        // 使用AWS SDK for Java 2.x BOM
+        mavenBom 'software.amazon.awssdk:bom:2.27.21'
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
@@ -35,7 +42,16 @@ dependencies {
     implementation("com.baomidou:mybatis-plus-boot-starter:3.5.11")
     implementation 'cn.hutool:hutool-all:5.8.36'
     implementation 'com.auth0:java-jwt:4.5.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    compileOnly("org.springframework.boot:spring-boot-devtools")
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // implementation 'org.springframework.boot:spring-boot-starter-security'
 
+    // 使用 AWS SDK for Java 2.x 操作京东云 OSS (替换v1版本)
+    // implementation 'com.amazonaws:aws-java-sdk-s3:1.12.783'
+    implementation 'software.amazon.awssdk:s3'
+    implementation 'software.amazon.awssdk:apache-client' // 使用Apache HTTP客户端
 }
 
 tasks.named('test') {
